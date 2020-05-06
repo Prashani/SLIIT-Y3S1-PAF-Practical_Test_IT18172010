@@ -66,6 +66,28 @@ public class PaymentAPI extends HttpServlet {
 		response.getWriter().write(output);
 	}
 
-	
+	/**
+	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
+	 */
+
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Payment paymentObj = new Payment();
+		Map paras = getParasMap(request);
+
+		String output = paymentObj.updatePayment(Integer.parseInt(paras.get("txtDoctor").toString()),
+				Integer.parseInt(paras.get("txtHospital").toString()),
+				Integer.parseInt(paras.get("txtPatient").toString()), paras.get("txtTotal").toString(),
+				Integer.parseInt(paras.get("hidItemIDSave").toString()));
+		response.getWriter().write(output);
+	}
+
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Payment paymentObj = new Payment();
+		Map paras = getParasMap(request);
+		String output = paymentObj.deleteItem(paras.get("paymentID").toString());
+		response.getWriter().write(output);
+	}
 
 }
