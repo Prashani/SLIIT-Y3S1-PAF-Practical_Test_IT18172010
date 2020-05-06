@@ -100,3 +100,18 @@ function validateItemForm() {
 	return true;
 }
 
+$(document).on(
+		"click",
+		"#btnUpdate",
+		function(event) {
+			$("#hidItemIDSave").val(
+					$(this).data("itemid"));
+			$("#txtPatient").val($(this).closest("tr").find('td:eq(2)').text());
+			$("#txtHospital").val($(this).closest("tr").find('td:eq(1)').text());
+			$("#txtDoctor").val($(this).closest("tr").find('td:eq(3)').text());
+			$("#txtTotal").val($(this).closest("tr").find('td:eq(4)').text());
+			
+			console.log($(this).data("itemid"));
+		});
+
+
