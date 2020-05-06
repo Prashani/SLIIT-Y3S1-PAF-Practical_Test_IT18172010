@@ -40,6 +40,32 @@ public class PaymentAPI extends HttpServlet {
 		return map;
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		Payment paymentObj = new Payment();
+		String output = paymentObj.readPayments2();
+		response.getWriter().write(output);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Payment paymentObj = new Payment();
+		String output = paymentObj.insertPayment(Integer.parseInt(request.getParameter("txtDoctor")),
+				Integer.parseInt(request.getParameter("txtHospital")),
+				Integer.parseInt(request.getParameter("txtPatient")), request.getParameter("txtTotal"));
+		response.getWriter().write(output);
+	}
+
 	
 
 }
