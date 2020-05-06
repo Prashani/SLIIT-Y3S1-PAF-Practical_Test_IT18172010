@@ -146,6 +146,40 @@ public class Payment {
 		return output;
 	}
 	
-	
+	public String updatePayment(int doctorID, int hospitalID, int patientID, String total,int paymentID) {
+		String output = "";
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for inserting.";
+			}
+			
+			String query = "UPDATE payments SET patientID= ? ,hospitalID=?,doctorID=?,total=?,date=? WHERE id=?";
+
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			System.out.println(formatter.format(date));
+
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			preparedStmt.setInt(1, patientID);
+			preparedStmt.setInt(2, hospitalID);
+			preparedStmt.setInt(3, doctorID);
+			preparedStmt.setString(4, total);
+			preparedStmt.setString(5, (formatter.format(date)));
+			preparedStmt.setInt(6, paymentID);
+
+			preparedStmt.execute();
+			con.close();
+
+			String newItems = readPayments();
+			output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}";
+		} catch (Exception e) {
+			output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}";
+			System.err.println(e.getMessage());
+		}
+		return output;
+
+	}
+
 
 }
